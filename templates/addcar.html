@@ -1,0 +1,44 @@
+{% extends 'main-1.html' %}
+{% load static %}
+{% block content %}
+<body>
+    <div class="container-fluid position-relative d-flex p-0">
+        <div class="content p-relative"  style="margin : 100px auto 0 ; ">
+            <div class="container-fluid pt-4 px-4" style="position: absolute; left: 50%; width: 600px; transform: translateX(-50%);">
+                <div class="row g-4">
+                    <div class="col-sm-12 col-xl-6">
+                        <div class="bg-secondary rounded h-100 p-4" style="width: 600px;">
+                            <form method="post" action="/caradded" enctype="multipart/form-data">
+                                 <h6 class="mb-4">Ajouter Voiture</h6>
+                                {% csrf_token %}
+                                <label for="model"  class="form-label">Model:</label>
+                                <input type="text"  class="form-control" id="exampleInputEmail1" name="model">
+                    
+                                <label for="maker"  class="form-label">Maker:</label>
+                                <input type="text" class="form-control" id="exampleInputEmail1" name="maker" >
+                    
+                                <label for="year"  class="form-label">Year:</label>
+                                <input type="number" class="form-control" id="exampleInputEmail1" name="year">
+                    
+                                <label for="price_per_day"  class="form-label">Price per Day:</label>
+                                <input type="number"  class="form-control" id="exampleInputEmail1" name="price_per_day" >
+                    
+                                <label for="images"  class="form-label">Images:</label>
+                                <input type="file" class="form-control" id="exampleInputEmail1" name="images" multiple >
+                                <br>
+                                <div class="d-flex justify-content-between">
+                                    <button type="submit" class="btn btn-primary">Ajouter</button>
+                                    
+                                </div>
+                               
+                            </form>
+                        </div>
+                        </div>
+                        </div>
+                        </div>
+                        </div>
+                        </div>
+                      
+                                                    
+</body>
+{% endblock content %}

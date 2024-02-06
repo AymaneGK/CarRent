@@ -1,0 +1,262 @@
+{% extends 'main-1.html' %}
+{% load static %}
+
+{% block content %}
+  <main>
+    <article>
+
+      <!-- 
+        - #HERO
+      -->
+      <section class="section hero" id="home">
+        <div class="container">
+  
+          <div class="hero-content">
+            <h2 class="h1 hero-title">DRIVE. SWAP. REPEATE. </h2>
+            <p class="hero-text">ADAPT YOUR CAR TO YOUR LIFESTYLE</p>
+          </div>
+  
+          <div class="hero-banner"></div>
+
+        </div>
+      </section>
+      <!-- 
+        - #FEATURED CAR
+      -->
+
+      <section class="section featured-car" id="featured-car">
+        <div class="container">
+
+          <div class="title-wrapper">
+            <h2 class="h2 section-title">Voir voitures</h2>
+
+            <a href="#" class="featured-car-link">
+              <span>View more</span>
+
+              <ion-icon name="arrow-forward-outline"></ion-icon>
+            </a>
+            <form action="{% url 'cars' %}" class="hero-form" style="grid-template-columns: 1fr 1fr 1fr 1fr 0.8fr;" method="GET">
+              <div class="input-wrapper">
+                <label for="input-1" class="input-label">Car model</label>
+                <input type="text" name="car-model" id="input-1" class="input-field" placeholder="What's model car">
+              </div>
+              <div class="input-wrapper">
+                <label for="input-4" class="input-label">Car maker</label>
+                <input type="text" name="car-maker" id="input-4" class="input-field" placeholder="What's car maker">
+              </div>
+              <div class="input-wrapper">
+                <label for="input-2" class="input-label">Price</label>
+                <input type="text" name="monthly-pay" id="input-2" class="input-field" placeholder="Price per day">
+              </div>
+              <div class="input-wrapper">
+                <label for="input-3" class="input-label">Make Year</label>
+                <input type="text" name="year" id="input-3" class="input-field" placeholder="year">
+              </div>
+              <button type="submit" class="btn">Search</button>
+            </form>
+          </div>
+
+          <ul class="featured-car-list">
+            {% for c in cars %}
+            <li>
+              <div class="featured-car-card">
+                <figure class="card-banner">
+                    {% for image_path in c.image_paths %}
+                  <img src=".{{ image_path }}" alt="" loading="lazy" width="440" height="300"
+                    class="w-100">
+                     {% endfor %}
+                </figure>
+
+                <div class="card-content">
+
+                  <div class="card-title-wrapper">
+                    <h3 class="h3 card-title">
+                      <a href="/car/{{ c.idcar }}" style="color: #EB1621;
+                      text-decoration: none">{{ c.maker }}</a>
+                    </h3>
+
+                    <data class="year" value="2021" style="border : 2px dashed #ff5454;">{{ c.year }}</data>
+                  </div>
+
+                  <ul class="card-list">
+
+                    <li class="card-list-item">
+                        <ion-icon name="calendar-outline" style="color: red;"></ion-icon>
+                        <span class="card-item-text">{{ c.status }}</span>
+                      </li>
+                      
+  
+                  
+
+                      <li class="card-list-item">
+                        <ion-icon name="car-outline" style="color: red;"></ion-icon>
+                        <span class="card-item-text">{{ c.model }}</span>
+                      </li>
+                      
+
+                  </ul>
+
+                  <div class="card-price-wrapper">
+
+                    <p class="card-price">
+                      <strong>DH{{ c.price_per_day }}</strong> / J
+                    </p>
+
+                    <button class="btn fav-btn" aria-label="Add to favourite list">
+                      <a href="/delete/{{ c.idcar }}" ><ion-icon name="trash-outline"></ion-icon></a>
+                      </button>
+                      
+                      <a href="/addres/{{ c.idcar }}">
+                    <button class="btn" style="background-color: #ff5454;color: #ffffff;">Réserver</button>
+                      </a>
+                  </div>
+
+                </div>
+
+              </div>
+            </li>
+
+            {% endfor %}
+          </ul>
+
+        </div>
+      </section>
+
+
+
+
+
+      <!-- 
+        - #GET START
+      -->
+
+     
+
+           
+
+    </article>
+  </main>
+
+
+
+
+
+  <!-- 
+    - #FOOTER
+  -->
+
+  <footer class="footer">
+    <div class="container">
+
+      <div class="footer-top">
+
+        <div class="footer-brand">
+          
+
+          <p class="footer-text">
+            Search for cheap rental cars in Morocco.  ARA Cars offers its
+            consumers an
+            attractive and fun selection.
+          </p>
+        </div>
+
+        <ul class="footer-list">
+
+          <li>
+            <p class="footer-list-title">Company</p>
+          </li>
+
+          <li>
+            <a href="#" class="footer-link">About us</a>
+          </li>
+
+          <li>
+            <a href="#" class="footer-link">Pricing plans</a>
+          </li>
+
+          <li>
+            <a href="#" class="footer-link">Our blog</a>
+          </li>
+
+          <li>
+            <a href="#" class="footer-link">Contacts</a>
+          </li>
+
+        </ul>
+
+        
+         
+
+        
+
+      </div>
+
+      <div class="footer-bottom">
+
+        <ul class="social-list">
+
+          <li>
+            <a href="#" class="social-link">
+              <ion-icon name="logo-facebook"></ion-icon>
+            </a>
+          </li>
+
+          <li>
+            <a href="#" class="social-link">
+              <ion-icon name="logo-instagram"></ion-icon>
+            </a>
+          </li>
+
+          <li>
+            <a href="#" class="social-link">
+              <ion-icon name="logo-twitter"></ion-icon>
+            </a>
+          </li>
+
+          <li>
+            <a href="#" class="social-link">
+              <ion-icon name="logo-linkedin"></ion-icon>
+            </a>
+          </li>
+
+          <li>
+            <a href="#" class="social-link">
+              <ion-icon name="logo-skype"></ion-icon>
+            </a>
+          </li>
+
+          <li>
+            <a href="#" class="social-link">
+              <ion-icon name="mail-outline"></ion-icon>
+            </a>
+          </li>
+
+        </ul>
+
+        <p class="copyright">
+          &copy; 2023 <a href="#">ARA Cars</a>. All Rights Reserved
+        </p>
+
+      </div>
+
+    </div>
+  </footer>
+
+
+
+
+
+  <!-- 
+    - custom js link
+  -->
+  <script src="./assets/js/script.js"></script>
+
+  <!-- 
+    - ionicon link
+  -->
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+  {% endblock content %}
+  <!-- delete car -->
+  <!-- <td></td> -->

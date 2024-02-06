@@ -1,0 +1,56 @@
+{% extends 'main-1.html' %}
+{% load static %}
+{% block content %}
+<style>
+    .form-control, .form-select {
+        background-color: white;
+        color: black;
+    }
+</style>
+<body>
+    <div class="container-fluid position-relative d-flex p-0">
+        <div class="content p-relative">
+            <div class="container-fluid pt-4 px-4" style="position: absolute; left: 50%; width: 600px; transform: translateX(-50%);">
+                <div class="row g-4">
+                    <div class="col-sm-12 col-xl-6">
+                        <div class="bg-secondary rounded h-100 p-4" style="width: 600px;">
+                            <form method="POST" action="/res_conf" class="mt-4">
+                                {% csrf_token %}
+                                <h6 class="mb-4">Creer Reservation</h6>
+                                <label for="client" class="form-label">Select a client:</label>
+                                <select id="client" name="client" class="form-select">
+                                    {% for client in clients %}
+                                        <option value="{{ client.id }}">{{ client.name }} {{ client.prenom }}</option>
+                                    {% endfor %}
+                                </select>
+
+                                <br><br>
+
+                                <label for="car" class="form-label">Selected Car:</label>
+
+                                <input type="text" id="start-date" name="" class="form-control" value="{{ car.maker }} - {{ car.model }}" readonly>
+                                <input type="hidden" id="start-date" name="car" class="form-control" value="{{ car.idcar }}" readonly>
+
+
+                                <br><br>
+
+                                <label for="start-date" class="form-label">Start Date:</label>
+                                <input type="date" id="start-date" name="start-date" class="form-control">
+
+                                <br><br>
+
+                                <label for="end-date" class="form-label">End Date:</label>
+                                <input type="date" id="end-date" name="end-date" class="form-control">
+
+                                <br><br>
+
+                                <input type="submit" value="Submit" class="btn btn-primary">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+{% endblock content %}

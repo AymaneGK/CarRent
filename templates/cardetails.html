@@ -1,0 +1,62 @@
+{% extends 'main-1.html' %}
+{% load static %}
+{% block content %}
+<body>
+    <div class="container-fluid position-relative d-flex p-0">
+        <div class="content p-relative">
+            <div class="container-fluid pt-4 px-4" style="position: absolute; left: 50%; width: 600px; transform: translateX(-50%);">
+                <div class="row g-4">
+                    <div class="col-sm-12 col-xl-6">
+                        <div class="bg-secondary rounded h-100 p-4" style="width: 600px;">
+                            <h6 class="mb-4">Car Details</h6>
+                            <div class="mb-3">
+                                <form action="/carupdate" method="POST" enctype="multipart/form-data">
+                                    {% csrf_token %}
+                                    <div style="    display: flex;
+                                    justify-content: space-between;
+                                    align-items: center;">
+                                        {% if car.image_paths %}
+                                            {% for image_path in car.image_paths %}
+                                                <img src=".{{ image_path }}" alt="Car Image" style="    width: 218px;
+                                                height: 140px;
+                                                display: block;    border-radius: 10%;">
+                                            {% endfor %}
+                                        {% endif %}
+                                        <br>
+                                    </div>
+                                    <label for="model" class="form-label">Model:</label>
+                                    <input type="text" class="form-control white-text" id="exampleInputEmail1" name="model" value="{{ car.model }}" ><br>
+
+                                    <label for="maker" class="form-label">Maker:</label>
+                                    <input type="text" class="form-control white-text" id="exampleInputEmail1" name="maker" value="{{ car.maker }}" ><br>
+
+                                    <label for="year" class="form-label">Year:</label>
+                                    <input type="text" class="form-control white-text" id="exampleInputEmail1" name="year" value="{{ car.year }}" ><br>
+
+                                    <label for="status" class="form-label">Status:</label>
+                                    <input type="text" class="form-control white-text" id="exampleInputEmail1" name="status" value="{{ car.status }}" ><br>
+
+                                    <label for="price_per_day" class="form-label">Price per Day:</label>
+                                    <input type="text" class="form-control white-text" id="exampleInputEmail1" name="price_per_day" value="{{ car.price_per_day }}" ><br>
+
+                                    <label for="images" class="form-label">Images:</label>
+                                    <input type="file" class="form-control white-text" id="images" name="images" multiple><br>
+
+                                    <input type="hidden" name="idcar" value="{{ car.idcar }}">
+                                    <br>
+                                    <div class="d-flex justify-content-between">
+                                        <button type="submit" class="btn btn-primary">Update</button>
+                                    </form>
+                                    <a href="/cars">
+                                        <button type="button" class="btn btn-primary">Back</button>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+{% endblock content %}

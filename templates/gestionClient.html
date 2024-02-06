@@ -1,0 +1,161 @@
+{% extends 'main-1.html' %}
+{% load static %}
+{% block content %}
+<body>
+  <style>
+    .popup-form-container {
+       display: none;
+       position: fixed;
+       top: 0;
+       left: 0;
+       width: 100%;
+       height: 100%;
+       background-color: rgba(0, 0, 0, 0.5);
+       z-index: 9999;
+     }
+   
+     .popup-form {
+   position: relative;
+   margin: 20px auto;
+   transform: translateY(-50%);
+   width: 400px;
+   top: 50%;
+   background-color: #fff;
+   padding: 20px;
+   border-radius: 5px;
+   background-color: #191C24;
+}
+
+
+.close-button {
+ position: absolute;
+ top: 10px;
+ right: 10px;
+ background-color: transparent;
+ border: none;
+ font-size: 20px;
+ cursor: pointer;
+}
+td img {
+ width: 60px;
+ height: 60px;
+ object-fit: cover;
+ object-position: center;
+ border-radius: 50%;
+}
+
+.p-4 {
+   padding : 1.5rem !important ; 
+}
+</style>
+<div class="pt-4 px-4" style="
+    margin : 100px !important ;"> 
+    <div class="bg-secondary text-center rounded p-4">
+        <div class="d-flex align-items-center justify-content-between mb-4">
+            <h6 class="mb-0">Liste des Clients</h6>
+      
+        </div>
+        <div class="table-responsive">
+            {% if no_clients %}
+            <p>No clients found.</p>
+          {% else %}
+            <table class="table text-start align-middle table-bordered table-hover mb-0">
+                <thead>
+                    <tr class="text-white">
+                        
+                        <th>Image</th>
+                        <th>Last Name</th>
+                        <th>First Name</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>CIN</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for client in clients_list %}
+                    <tr>
+                       
+        <td><img src="{{ client.image_path }}" style="
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            object-position: center;
+            border-radius: 50%;"></td>
+          
+        <td>{{ client.name }}</td>
+        <td>{{ client.prenom }}</td>
+        <td>{{ client.email }}</td>
+        <td>{{ client.telephone }}</td>
+        <td>{{ client.cin }}</td>
+        <td class="actions-column">
+          <a class="btn btn-sm btn-primary" href="/show_client/{{ client.id }}">Edit</a>
+          <a class="btn btn-sm btn-primary" href="/deleteClient/{{ client.id }}">Delete</a>
+        </td>   
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% endif %}
+        </div>
+        <a href="#" id="add-client-btn" class="btn btn-lg btn-primary btn-lg-square">add</a>
+    </div>
+</div>
+
+<div class="popup-form-container" id="add-client-popup">
+    <div class="popup-form">
+<div class="bg-secondary rounded h-100 p-4">
+  <button class="close-button" onclick="closePopup()">x</button>
+      <h6>Add Client</h6>
+      <form action="{% url 'add_client' %}" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="mb-3">
+          <label class="form-label" for="nom">Last Name:</label>
+          <input  class="form-control" id="exampleInputEmail1" type="text" name="nom" required>
+      
+          <label class="form-label" for="prenom">First Name:</label>
+          <input  class="form-control" id="prenom" type="text" name="prenom" required>
+      
+     
+          <label class="form-label" for="email">Email:</label>
+          <input  class="form-control" id="email" type="text" name="email" required>
+      
+          <label for="tele" class="form-label">Phone</label>
+          <input  type="text" name="tele" required class="form-control" id="tele">
+          <label for="cin" class="form-label">CIN</label>
+          <input  type="text" name="cin" required class="form-control" id="cin">
+          <label for="image" class="form-label">Image:</label>
+          <input type="file" class="form-control" name="image" id="image">
+      </div>
+        <button type="submit" class="btn btn-lg btn-primary btn-lg-square">Add</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+ <!-- to add to javaScript Code -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+  function closePopup() {
+      var popup = document.getElementById("add-client-popup");
+      popup.style.display = "none";
+  }
+  </script>
+<script>
+  $(document).ready(function() {
+    // Show the popup form when the "Add" button is clicked
+    $('#add-client-btn').click(function(e) {
+      e.preventDefault();
+      $('#add-client-popup').show();
+    });
+    // Hide the popup form when clicking outside of it
+    $(document).mouseup(function(e) {
+      var container = $('#add-client-popup');
+      if (!container.is(e.target) && container.has(e.target).length === 0) {
+        container.hide();
+      }
+    });
+  });
+</script>
+</body>
+{% endblock content %}

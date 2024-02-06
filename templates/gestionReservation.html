@@ -1,0 +1,74 @@
+{% extends 'main-1.html' %}
+{% load static %}
+{% block content %}
+<body>
+    <div class="pt-4 px-4" style="
+    margin : 100px !important ;">
+    <div class="bg-secondary text-center rounded p-4">
+        <div class="d-flex align-items-center justify-content-between mb-4">
+            <h6 class="mb-0">Reservation list</h6>
+
+        </div>
+        <div class="table-responsive">
+            {% if no_reservations %}
+            <p>No reservations found.</p>
+          {% else %}
+            <table class="table text-start align-middle table-bordered table-hover mb-0">
+                <thead>
+                    <tr class="text-white">
+
+                        <th></th>
+                        <th>client</th>
+                        <th>car</th>
+                        <th>start date</th>
+                        <th>end date</th>
+                        <th>Total Price</th>
+
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for reservations in reservations_list %}
+                    <tr>
+
+        <td><img src="{{ reservations.car.image_paths.0 }}" style="
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            object-position: center;
+            border-radius: 50%;"></td>
+
+        <td>{{ reservations.client.name }}</td>
+        <td>{{ reservations.car.model }}</td>
+        <td>{{ reservations.start_date }}</td>
+        <td>{{ reservations.end_date }}</td>
+                        <td>{{ reservations.price }} DH</td>
+        {% if not reservations.status  %}
+        <td class="actions-column">
+            <a class="btn btn-sm btn-success" href="/res_a/{{ reservations.id }}">
+                <i class="fas fa-check"></i>
+             </a>
+
+             <a class="btn btn-sm btn-primary" href="/res_r/{{ reservations.id }}">
+                <i class="fas fa-times"></i>
+             </a>
+        </td>
+            {% else %}
+            <td class="actions-column">
+             <a class="btn btn-sm btn-success" href="#">
+                Accepted
+             </a>
+        </td>
+                    {% endif %}
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% endif %}
+        </div>
+
+    </div>
+</div>
+
+</body>
+{% endblock content %}
